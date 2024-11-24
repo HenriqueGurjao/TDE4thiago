@@ -5,6 +5,9 @@ LABEL description="This is the Dockerfile for the Users service"
 # Set the working directory
 WORKDIR /app
 
+#veriafica se o arquivo foi criado
+RUN ls /app/target
+
 # Copy the Maven wrapper and pom.xml
 COPY mvnw ./
 COPY .mvn .mvn
@@ -20,7 +23,7 @@ RUN ./mvnw dependency:go-offline -B
 COPY src src
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
+RUN ./mvn clean package -DskipTests
 
 # Stage 2: Run the application
 FROM openjdk:21
