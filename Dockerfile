@@ -1,6 +1,6 @@
 # Stage 1: Build the application
 FROM openjdk:21 AS build
-LABEL authors="Henrique"
+LABEL authors="henrique"
 LABEL description="This is the Dockerfile for the Users service"
 # Set the working directory
 WORKDIR /app
@@ -29,7 +29,7 @@ FROM openjdk:21
 WORKDIR /app
 
 # Copy the built jar from the build stage
-COPY --from=build /app/target/projetorest-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/users-0.0.1-SNAPSHOT.jar users.jar
 
 # Expose port 8080
 EXPOSE 8090
