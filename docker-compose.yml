@@ -4,7 +4,7 @@ services:
     ports:
       - '8091:8091'
     environment:
-      - SPRING_DATASOURCE_URL=postgresql://postgres:GoTXZTOyqUmOLzADITuJOlWHhkJgrUHb@autorack.proxy.rlwy.net:11391/railway
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres.railway.internal:5432/railway
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=GoTXZTOyqUmOLzADITuJOlWHhkJgrUHb
     depends_on:
