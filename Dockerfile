@@ -1,39 +1,36 @@
 # Stage 1: Build the application
-FROM openjdk:21 AS build
-LABEL authors="henrique"
+FROM maven:3.9.4-eclipse-temurin-21 AS build
+LABEL authors="bionemac"
 LABEL description="This is the Dockerfile for the Users service"
+
 # Set the working directory
 WORKDIR /app
-
 
 # Copy the Maven wrapper and pom.xml
 COPY mvnw ./
 COPY .mvn .mvn
 COPY pom.xml ./
 
-# Make the Maven wrapper executable
-RUN chmod +x mvnw
-
-# Download dependencies
-RUN ./mvnw dependency:go-offline -B
+# Make the Maven wrapper executable and download dependencies
+RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
 
 # Copy the source code
 COPY src src
 
 # Build the application
-RUN ./mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application
-FROM openjdk:21
+FROM eclipse-temurin:21-jre
 
 # Set the working directory
 WORKDIR /app
 
 # Copy the built jar from the build stage
-COPY --from=build /app/target/users-0.0.1-SNAPSHOT.jar users.jar
+COPY --from=build /app/target/users-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose port 8080
-EXPOSE 8090
+# Expose the port (Railway uses port 8080)
+EXPOSE 8080
 
 # Define the entrypoint
-ENTRYPOINT ["java", "-jar", "users.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
