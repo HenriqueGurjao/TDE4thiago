@@ -30,7 +30,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Expose the port (Railway uses port 8080)
-EXPOSE 8080
+EXPOSE 8090
 
 # Define the entrypoint
 ENTRYPOINT ["java", "-jar", "app.jar"]
